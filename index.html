@@ -15,18 +15,43 @@
             border: 1px solid #ccc;
             padding: 10px;
         }
+        #markdown-source {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            white-space: pre-wrap; /* Preserve formatting and wrap text */
+            word-break: break-word; /* Break long words */
+            display: none;
+        }
     </style>
 </head>
 <body>
     <h1>Markdown Viewer 9204</h1>
+    <button id="toggle-source">Show Source</button>
     <div id="markdown-output"></div>
+    <pre id="markdown-source"></pre>
 
     <script>
+        const markdownSource = document.getElementById('markdown-source');
+        const markdownOutput = document.getElementById('markdown-output');
+        const toggleSourceButton = document.getElementById('toggle-source');
+
         fetch('input.md')
             .then(response => response.text())
             .then(markdown => {
-                document.getElementById('markdown-output').innerHTML = marked.parse(markdown);
+                markdownOutput.innerHTML = marked.parse(markdown);
+                markdownSource.textContent = markdown;
             });
+
+        toggleSourceButton.addEventListener('click', () => {
+            if (markdownSource.style.display === 'none') {
+                markdownSource.style.display = 'block';
+                toggleSourceButton.textContent = 'Hide Source';
+            } else {
+                markdownSource.style.display = 'none';
+                toggleSourceButton.textContent = 'Show Source';
+            }
+        });
     </script>
 </body>
 </html>
