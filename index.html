@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Viewer 9204</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+        #markdown-output {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Markdown Viewer 9204</h1>
+    <div id="markdown-output"></div>
+
+    <script>
+        fetch('input.md')
+            .then(response => response.text())
+            .then(markdown => {
+                document.getElementById('markdown-output').innerHTML = marked.parse(markdown);
+            });
+    </script>
+</body>
+</html>
